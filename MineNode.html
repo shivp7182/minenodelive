@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MineNode — Affordable Minecraft Hosting</title>
+<style>
+  :root{
+    --bg:#071018; --panel:#0f1720; --accent:#00e5ff; --muted:#9aa6b2;
+    --card:#0d151a; --radius:12px; --maxw:1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Minecraftia',sans-serif}
+  body{background:linear-gradient(180deg,#05070a 0%,#071018 100%);color:#e6f2f7;min-height:100vh;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:var(--maxw);padding:28px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{font-weight:900;color:var(--accent);font-size:22px;letter-spacing:1px}
+  nav a{color:var(--muted);text-decoration:none;margin-left:12px;font-weight:700}
+  .cta{background:linear-gradient(90deg,var(--accent),#00b3ff);padding:8px 12px;border-radius:10px;color:#041016;text-transform:uppercase;font-weight:800}
+  .hero{margin-top:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));padding:22px;border-radius:14px;display:flex;gap:18px;align-items:center}
+  .hero-left{flex:1}
+  .hero h1{font-size:28px;color:#dffbff;margin-bottom:6px}
+  .muted{color:var(--muted)}
+  .badge{display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(0,229,255,0.05);color:var(--accent);font-weight:800}
+  .buttons{margin-top:12px;display:flex;gap:10px}
+  .button{padding:10px 14px;border-radius:10px;background:var(--accent);color:#041016;text-decoration:none;font-weight:800}
+  .outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+  .features{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+  .card{background:var(--card);padding:12px;border-radius:12px;min-width:160px;box-shadow:0 8px 28px rgba(0,0,0,0.6)}
+  .section{margin-top:26px}
+  .plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .plan-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+  .plan-name{font-weight:900;color:var(--accent);margin-bottom:6px}
+  .plan-desc{color:var(--muted);font-size:14px;margin-bottom:8px}
+  .price{font-weight:900;font-size:18px}
+  .two-cols{display:grid;grid-template-columns:1fr 380px;gap:16px}
+  .calc{background:var(--panel);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+  .calc table{width:100%;border-collapse:collapse}
+  .calc th,.calc td{padding:8px 6px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:14px}
+  input[type=number]{width:80px;padding:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+  .copy{cursor:pointer;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03);font-weight:700}
+  footer{margin-top:26px;color:var(--muted);text-align:center;padding:12px}
+  pre.invoice{background:transparent;color:var(--muted);padding:8px;border-radius:8px;border:1px dashed rgba(255,255,255,0.03);overflow:auto}
+  @media(max-width:920px){.two-cols{grid-template-columns:1fr}.hero{flex-direction:column}.nav{display:none}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">MineNode</div>
+      <nav>
+        <a href="#home" onclick="scrollToSection('home')">Home</a>
+        <a href="#plans" onclick="scrollToSection('plans')">Plans</a>
+        <a href="#calculator" onclick="scrollToSection('calculator')">Profit Calc</a>
+        <a href="#contact" onclick="scrollToSection('contact')">Contact</a>
+        <a class="cta" href="https://panel.minenode.qzz.io" target="_blank">Panel</a>
+      </nav>
+    </header>
+
+    <!-- HOME -->
+    <main id="home" class="hero" role="main">
+      <div class="hero-left">
+        <h1>MineNode — Affordable servers, professional performance ⚡</h1>
+        <p class="muted">Lag-free Minecraft hosting with <strong>Pterodactyl panel</strong>. Instant setup. FamPay: <strong id="fampay">shivpatel7182@fam</strong> • Discord: <a id="discordLink" href="https://discord.gg/8gGZmt46EE" style="color:var(--accent)" target="_blank">discord.gg/8gGZmt46EE</a></p>
+
+        <div class="buttons">
+          <a class="button" href="#plans" onclick="scrollToSection('plans')">View Plans</a>
+          <button class="copy" onclick="copyFamPay()">Copy FamPay ID</button>
+        </div>
+
+        <div class="features" style="margin-top:14px">
+          <div class="card"><strong>24/7 Uptime</strong><div class="muted small">Low-latency & DDoS protection</div></div>
+          <div class="card"><strong>Pterodactyl Panel</strong><div class="muted small">Full panel access + SFTP + console</div></div>
+          <div class="card"><strong>Instant Setup</strong><div class="muted small">Send payment screenshot on Discord</div></div>
+        </div>
+      </div>
+
+      <div style="width:340px">
+        <div class="card">
+          <h3 style="margin:0 0 8px">Quick Ad (copy)</h3>
+          <div class="muted" id="discordAd" style="white-space:pre-wrap;font-size:13px">
+🎉 MineNode — Cheap Minecraft Hosting 🎉
+
+Lag-free servers • Pterodactyl panel • Instant setup
+🔥 Plans from ₹19/month
+💰 FamPay: shivpatel7182@fam
+🖥️ Panel: panel.minenode.qzz.io
+⚡ Order on Discord: discord.gg/8gGZmt46EE
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="copy" onclick="copyText('#discordAd')">Copy Ad</button>
+            <a class="copy" href="https://discord.gg/8gGZmt46EE" target="_blank">Open Discord</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- PLANS -->
+    <section id="plans" class="section">
+      <h2>Plans — Modern & Gamer-friendly</h2>
+      <p class="muted">All plans include Pterodactyl panel access, DDoS protection and instant setup. Payment via FamPay (ID: <strong>shivpatel7182@fam</strong>).</p>
+
+      <div class="plans-grid" style="margin-top:12px">
+        <div class="plan-card">
+          <div class="plan-name">🌱 Starter</div>
+          <div class="plan-desc">1GB RAM • 1 vCPU • 2GB SSD</div>
+          <div class="price">₹19 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">🪓 Miner</div>
+          <div class="plan-desc">2GB RAM • 1 vCPU • 4GB SSD</div>
+          <div class="price">₹29 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">🔮 Adventurer</div>
+          <div class="plan-desc">3GB RAM • 1 vCPU • 6GB SSD</div>
+          <div class="price">₹39 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">🏰 Knight</div>
+          <div class="plan-desc">4GB RAM • 2 vCPU • 8GB SSD</div>
+          <div class="price">₹59 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">⚡ Hero</div>
+          <div class="plan-desc">5GB RAM • 2 vCPU • 10GB SSD</div>
+          <div class="price">₹69 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">🔥 Legend</div>
+          <div class="plan-desc">6GB RAM • 2 vCPU • 12GB SSD</div>
+          <div class="price">₹89 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">💎 Titan</div>
+          <div class="plan-desc">8GB RAM • 3 vCPU • 16GB SSD</div>
+          <div class="price">₹149 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">👑 Overlord</div>
+          <div class="plan-desc">16GB RAM • 4 vCPU • 40GB SSD</div>
+          <div class="price">₹249 / month</div>
+          <div style="margin-top:8px"><a class="cta" href="https://discord.gg/8gGZmt46EE" target="_blank">Order on Discord</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFIT CALCULATOR -->
+    <section id="calculator" class="section">
+      <h2>Profit Calculator</h2>
+      <p class="muted">Enter quantity sold per plan. Usable RAM = <strong>52 GB</strong>. Default VPS cost = <strong>₹400</strong>. (Profit = Income − VPS Cost)</p>
+
+      <div class="two-cols" style="margin-top:12px">
+        <div>
+          <div class="calc">
+            <table id="calcTable">
+              <thead><tr><th>Plan</th><th>RAM</th><th>Price</th><th>Qty</th><th>Income</th></tr></thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" style="text-align:right" class="muted">VPS Monthly Cost (₹):</td>
+                  <td><input id="vpsCost" type="number" value="400" min="0" /></td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+              <button class="button" onclick="calculate()">Calculate</button>
+              <button class="outline" onclick="resetAll()">Reset</button>
+            </div>
+
+            <div id="result" style="margin-top:12px"></div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h3 style="margin:0 0 8px">Quick Tips</h3>
+            <ul class="muted" style="margin-top:8px;line-height:1.6">
+              <li>Offer 1-day free trial for Starter plan to convert users.</li>
+              <li>Promote in Minecraft Discords & Instagram (use the Ad copy).</li>
+              <li>Raise 8GB price a little if early sales are low (₹149 → ₹179).</li>
+            </ul>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="card">
+            <h4 style="margin:0 0 8px">Promo Captions</h4>
+            <div class="muted" style="font-size:13px">
+              <strong>Post:</strong> 🚀 Host your SMP from ₹19/month! FamPay: shivpatel7182@fam<br><br>
+              <strong>8GB promo:</strong> 8GB plan ₹149/month — DM to buy!
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2>Contact & Payment</h2>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px">
+        <div class="card" style="flex:1;min-width:240px">
+          <h4 style="margin:0 0 6px">Discord</h4>
+          <div class="muted">Join: <a href="https://discord.gg/8gGZmt46EE" style="color:var(--accent)" target="_blank">discord.gg/8gGZmt46EE</a></div>
+          <div style="height:8px"></div>
+          <h4 style="margin:0 0 6px">Payment</h4>
+          <div class="muted">FamPay ID: <strong id="fampay2">shivpatel7182@fam</strong></div>
+          <div style="height:8px"></div>
+          <div><button class="copy" onclick="copyFamPay()">Copy FamPay ID</button></div>
+        </div>
+
+        <div class="card" style="flex:1;min-width:240px">
+          <h4 style="margin:0 0 6px">Panel</h4>
+          <div class="muted">Panel URL: <a href="https://panel.minenode.qzz.io" style="color:var(--accent)" target="_blank">panel.minenode.qzz.io</a></div>
+          <div style="height:8px"></div>
+          <h4 style="margin:0 0 6px">Invoice Template</h4>
+          <pre class="invoice">MineNode - Invoice
+Date: {date}
+
+Invoice To: {client_name}
+Plan: {plan_name}
+RAM: {ram} GB
+Price: ₹{price}/month
+Payment Method: FamPay
+FamPay ID: shivpatel7182@fam
+Payment Proof: (attach screenshot)</pre>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © MineNode — Built by UnknownPixel • Panel: <a href="https://panel.minenode.qzz.io" style="color:var(--accent)">panel.minenode.qzz.io</a>
+    </footer>
+  </div>
+
+<script>
+  // Plans used by calculator (keep in sync with displayed plans)
+  const PLANS = [
+    {key:'Starter', ram:1, price:19},
+    {key:'Miner', ram:2, price:29},
+    {key:'Adventurer', ram:3, price:39},
+    {key:'Knight', ram:4, price:59},
+    {key:'Hero', ram:5, price:69},
+    {key:'Legend', ram:6, price:89},
+    {key:'Titan', ram:8, price:149},
+    {key:'Overlord', ram:16, price:249}
+  ];
+
+  // render calculator table
+  function renderCalc(){
+    const tbody = document.querySelector('#calcTable tbody');
+    tbody.innerHTML = '';
+    PLANS.forEach((p,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td style="width:150px">${p.key}</td>
+                      <td>${p.ram} GB</td>
+                      <td>₹${p.price}</td>
+                      <td><input id="q${i}" type="number" min="0" value="0" /></td>
+                      <td id="inc${i}">₹0</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function calculate(){
+    const vps = Number(document.getElementById('vpsCost').value) || 0;
+    let income = 0, totalRam = 0;
+    let breakdown = [];
+    PLANS.forEach((p,i)=>{
+      const q = Number(document.getElementById('q'+i).value) || 0;
+      const inc = q * p.price;
+      income += inc;
+      totalRam += q * p.ram;
+      document.getElementById('inc'+i).innerText = '₹' + inc;
+      if(q>0) breakdown.push(`${p.key}: ${q} × ₹${p.price} = ₹${inc}`);
+    });
+    const profit = income - vps;
+    const usable = 52;
+    const result = document.getElementById('result');
+    result.innerHTML = `
+      <div class="muted">Total Income: <strong>₹${income}</strong></div>
+      <div class="muted">VPS Cost: <strong>₹${vps}</strong></div>
+      <div style="height:8px"></div>
+      <div style="font-weight:900;font-size:16px">${profit>=0 ? 'Net Profit' : 'Net Loss'}: ₹${profit}</div>
+      <div class="muted" style="margin-top:8px">Total RAM Allocated: <strong>${totalRam} GB</strong> — ${ totalRam>usable ? '<span style="color:#ffb3b3">⚠️ Exceeds usable RAM ('+usable+'GB)</span>' : '<span style="color:#b6ffd9">OK (usable '+usable+'GB)</span>' }</div>
+      <div class="muted" style="margin-top:8px">${breakdown.length ? 'Breakdown:<br>' + breakdown.join('<br>') : ''}</div>
+    `;
+  }
+
+  function resetAll(){
+    PLANS.forEach((p,i)=>document.getElementById('q'+i).value = 0);
+    PLANS.forEach((p,i)=>document.getElementById('inc'+i).innerText = '₹0');
+    document.getElementById('vpsCost').value = 400;
+    document.getElementById('result').innerHTML = '';
+  }
+
+  function copyText(selector){
+    const txt = document.querySelector(selector).innerText;
+    navigator.clipboard.writeText(txt).then(()=>alert('Copied to clipboard'));
+  }
+
+  function copyFamPay(){
+    navigator.clipboard.writeText('shivpatel7182@fam').then(()=>alert('FamPay ID copied'));
+  }
+
+  function scrollToSection(id){
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  }
+
+  // init
+  document.addEventListener('DOMContentLoaded', ()=>{
+    renderCalc();
+  });
+</script>
+</body>
+</html>
